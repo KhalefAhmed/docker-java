@@ -26,6 +26,7 @@ public class HelloWorld {
                     .channel(NioServerSocketChannel.class);
 
             Channel ch = bootstrap.bind(HTTP_PORT).sync().channel();
+            System.exit(0);
             ch.closeFuture().sync();
         } finally {
             eventLoopGroup.shutdownGracefully();
