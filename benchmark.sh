@@ -1,5 +1,5 @@
 # Our containers
-declare -a images=("graal" "plain" "module")
+declare -a images=("graal" "plain" "module" "alpine")
 
 # Make sure that no container already exist & run the containers
 for i in "${images[@]}"
