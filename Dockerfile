@@ -12,7 +12,7 @@ RUN jlink --compress=2 \
     --no-man-pages \
     --output /netty-runtime
 
-FROM gcr.io/distroless/base
+FROM gcr.io/distroless/java-base-debian11
 COPY --from=build /netty-runtime /opt/jdk
 ENV PATH=$PATH:/opt/jdk/bin
 COPY --from=build /app.jar /opt/app/app.jar
