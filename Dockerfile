@@ -6,7 +6,7 @@ RUN jdeps --print-module-deps --ignore-missing-deps /app.jar > /deps.info
 
 RUN jlink --compress=2 \
     --module-path ${JAVA_HOME}/jmods \
-    --add-modules $(cat /deps.info),jdk.crypto.ec \
+    --add-modules $(cat /deps.info) \
     --strip-java-debug-attributes \
     --no-header-files \
     --no-man-pages \
