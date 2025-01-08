@@ -10,4 +10,4 @@ FROM alpine:3.15
 COPY --from=build  /netty-runtime /opt/jdk
 ENV PATH=$PATH:/opt/jdk/bin
 COPY target/docker-java-1.0-SNAPSHOT.jar /opt/app/
-CMD ["java", "-showversion", "-jar", "/opt/app/docker-java-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/opt/app/docker-java-1.0-SNAPSHOT.jar"]
