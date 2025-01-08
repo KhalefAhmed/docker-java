@@ -1,5 +1,5 @@
 # Our containers
-declare -a images=("graal" "plain" "module" "alpine-benchmark" "graal-o2")
+declare -a images=("graal" "plain" "module" "alpine-benchmark" "graal-o2" "alpine-compress-0")
 
 # Make sure that no container already exist & run the containers
 for i in "${images[@]}"
