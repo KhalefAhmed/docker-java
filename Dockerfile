@@ -4,7 +4,7 @@ COPY target/docker-java-1.0-SNAPSHOT.jar /app.jar
 
 RUN jdeps --print-module-deps --ignore-missing-deps /app.jar > /deps.info
 
-RUN jlink --compress=2 \
+RUN jlink --compress=0 \
     --module-path ${JAVA_HOME}/jmods \
     --add-modules $(cat /deps.info) \
     --strip-java-debug-attributes \
