@@ -16,4 +16,4 @@ FROM gcr.io/distroless/java-base-debian11
 COPY --from=build /netty-runtime /opt/jdk
 ENV PATH=$PATH:/opt/jdk/bin
 COPY --from=build /app.jar /opt/app/app.jar
-CMD ["java", "-showversion", "-jar", "/opt/app/app.jar"]
+CMD ["java", "-jar", "/opt/app/app.jar"]
