@@ -1,19 +1,13 @@
-FROM amazoncorretto:21 AS build
+FROM amazoncorretto:21-alpine as build
+# jdeps can help identify which modules an application uses
+RUN ["jlink", "--compress=0", \
+    "--module-path", "/opt/jdk/jmods/", \
+    "--add-modules", "java.base,java.logging,java.naming,java.xml,jdk.sctp,jdk.unsupported", \
+    "--no-header-files", "--no-man-pages", \
+    "--output", "/netty-runtime"]
 
-COPY target/docker-java-1.0-SNAPSHOT.jar /app.jar
-
-RUN jdeps --print-module-deps --ignore-missing-deps /app.jar > /deps.info
-
-RUN jlink --compress=0 \
-    --module-path ${JAVA_HOME}/jmods \
-    --add-modules $(cat /deps.info) \
-    --strip-java-debug-attributes \
-    --no-header-files \
-    --no-man-pages \
-    --output /netty-runtime
-
-FROM gcr.io/distroless/java-base-debian11
-COPY --from=build /netty-runtime /opt/jdk
+FROM alpine:3.15
+COPY --from=build  /netty-runtime /opt/jdk
 ENV PATH=$PATH:/opt/jdk/bin
-COPY --from=build /app.jar /opt/app/app.jar
-CMD ["java", "-jar", "/opt/app/app.jar"]
+COPY target/docker-java-1.0-SNAPSHOT.jar /opt/app/
+CMD ["java", "-jar", "/opt/app/docker-java-1.0-SNAPSHOT.jar"]
